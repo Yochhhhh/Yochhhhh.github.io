@@ -1,97 +1,42 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Body Styling */
-  body {
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    background-color: #f7f8fc;
-    padding: 0 20px;
-  }
-about{
-     display: flex;
-        justify-content: center;
-}
-  
-  /* Header Section */
-  header {
-    text-align: center;
-    padding: 50px 0;
-    background-color: #7ea7dd; /* Green accent */
-    color: white;
-  }
-  
-  header h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-  }
-  
-  header p {
-    font-size: 1.2rem;
-  }
-  
-  /* Navigation Bar */
-  nav {
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #191e77;
-    font-weight: bold;
-    font-size: 1rem;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  nav a:hover {
-    border-bottom: 2px solid #4CAF50;
-  }
-  
-  /* Main Content */
-  main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
-  /* Section Titles */
-  section h2 {
-    color: #191e77;
-    margin-bottom: 10px;
-    font-size: 2rem;
-    text-align: center;
-  }
-  
-  /* Skills Section */
-  .skills {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 20px 0;
-  }
-  
-  .skill-item {
-    background: #f1f1f1;
-    border: 1px solid #ddd;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  /* Projects Section */
-.row {
+    .container {
+      position: fixed;
+      overflow: auto;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    .header-row {
+      background-color: orange;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0px;
+    }
+
+    .header-row .box {
+      padding: 10px;
+    }
+
+    .header-row li {
+      display: inline;
+      padding: 5px;
+      font-size: larger;
+    }
+
+    .header-row a {
+      text-decoration: none;
+    }
+
+    .header-row a:hover {
+      text-decoration: underline;
+    }
+
+    .row {
       padding: 100px;
       height: 75%;
     }
@@ -100,81 +45,19 @@ about{
       padding: 20px;
       margin: 10px;
     }
-  .project {
-    margin-bottom: 20px;
-  }
-  
-  .project h3 {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-  }
-  
-  .project p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .project a {
-    color: #191e77;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .project a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Contact Section */
-  .contact {
-    text-align: center;
-    margin-top: 40px;
-  }
-  
-  .contact a {
-    color: white;
-    background: #8cc2f0;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background 0.3s;
-  }
-  
-  .contact a:hover {
-    background: #92baea;
-  }
-  
-  /* Footer */
-  footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background:  #7ea7dd;
-    color: white;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  footer p {
-    font-size: 0.9rem;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 2.5rem;
+
+    .footer {
+      padding: 20px;
+      margin: 0px;
+      background-color: black;
+      color: white;
+      font-size: large;
     }
-  
-    nav a {
-      font-size: 0.9rem;
+
+    button {
+      background-color: teal;
+      padding: 10px;
+      color: white;
+      border: none;
+      border-radius: 10%;
     }
-  
-    section h2 {
-      font-size: 1.8rem;
-    }
-  
-    .skills {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
