@@ -10,7 +10,7 @@
     }
 
     .header-row {
-      background-color: orange;
+      background-color: rgb(0, 123, 255);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -20,16 +20,19 @@
 
     .header-row .box {
       padding: 10px;
+     
     }
 
     .header-row li {
       display: inline;
       padding: 5px;
       font-size: larger;
+     
     }
 
     .header-row a {
       text-decoration: none;
+      color: black;
     }
 
     .header-row a:hover {
@@ -39,8 +42,10 @@
     .row {
       padding: 100px;
       height: 75%;
+      background-color: rgb(189, 141, 255);
+      
     }
-
+    
     .row .box {
       padding: 20px;
       margin: 10px;
@@ -49,7 +54,7 @@
     .footer {
       padding: 20px;
       margin: 0px;
-      background-color: black;
+      background-color: rgb(0, 123, 255);
       color: white;
       font-size: large;
     }
@@ -60,4 +65,7 @@
       color: white;
       border: none;
       border-radius: 10%;
+    }
+    .home{
+      background-color: darkgrey;
     }
