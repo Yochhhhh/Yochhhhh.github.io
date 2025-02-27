@@ -4,158 +4,206 @@ let cart = {};
 let users = [];
 let user = {};
 let total = 0;
+
+function initApp() {
+  // Start with the login screen.
+  showLogin();
+}
+
+/* ---------- CART FUNCTIONS ---------- */
 const addToCart = (id) => {
   if (!cart[id]) cart[id] = 1;
+  else cart[id]++;
   showCart();
 };
+
 const increment = (id) => {
-  cart[id] = cart[id] + 1;
+  cart[id] += 1;
   showCart();
 };
+
 const decrement = (id) => {
-  cart[id] = cart[id] - 1;
-  cart[id] < 1 && delete cart[id];
-  console.log(cart);
+  cart[id] -= 1;
+  if (cart[id] < 1) delete cart[id];
   showCart();
 };
+
 const showTotal = () => {
-  total = products.reduce((sum, value) => {
-    return sum + value.price * (cart[value.id] ? cart[value.id] : 0);
+  total = products.reduce((sum, product) => {
+    return sum + product.price * (cart[product.id] ? cart[product.id] : 0);
   }, 0);
-
-  divTotal.innerHTML = `Order Value: $${total}`;
-};
-
-const showOrders = () => {
-  let str = "<div style='padding:30px'><h3>My Orders</h1>";
-  orders.map((value) => {
-    if (value.customer === user.email) {
-      str += `
-      <div>
-      ${value.customer}-
-      ${value.orderValue}-
-      ${Object.keys(value.items).length}-
-      ${value.status}
-      </div>
-      `;
-    }
-  });
-  divProducts.innerHTML = str + "</div>"
-};
-
-const showMain = () => {
-  let str = `
-  <div class="container">
-      <div class="header">
-        <h1>My Store</h1>
-        <div class='menu'>
-         <li onclick='showProducts()'>Home</li>
-          <li onclick='showOrders()'>Orders</li>
-          <li onclick="displayCart()">Cart:<span id="items"></span></li>
-          <li onclick='showLogin()'>Logout</li>
-        </div>
-      </div>
-      <div class="productBlock">
-        <div id="divProducts"></div>
-      </div>
-      <div id="divCartBlock" class="cartBlock">
-        <h3>My Cart</h3>
-        <div id="divCart"></div>
-        <div id="divTotal"></div>
-        <button onclick="hideCart()">Close</button>
-      </div>
-        <hr>
-    <h4>@Copyright 2025. All rights reserved.</h4>
-    </div>
-  `;
-  root.innerHTML = str;
-  showProducts();
-};
-
-const placeOrder = () => {
-  //create an object and push into orders array
-  const obj = {
-    customer: user.email,
-    items: cart,
-    orderValue: total,
-    status: "pending",
-  };
-  orders.push(obj);
-  cart = {};
-  showCart()
-  hideCart()
-  showOrders();
-  console.log(orders);
+  document.getElementById("divtotal").innerHTML = "$" + total;
 };
 
 const showCart = () => {
   let str = "";
-  products.map((value) => {
-    if (cart[value.id]) {
+  products.forEach((product) => {
+    if (cart[product.id]) {
       str += `
-        <li>${value.name}-$${value.price}-<button onclick='decrement(${
-        value.id
-      })'>-</button>${cart[value.id]}<button onclick='increment(${
-        value.id
-      })'>+</button>-$${value.price * cart[value.id]}</li>
-     
-        `;
+        <li>
+          <img src="${product.url}" alt="${product.name}" />
+          <div>
+            <strong>${product.name}</strong> - $${product.price}<br>
+            <button onclick="decrement(${product.id})">-</button>
+            ${cart[product.id]}
+            <button onclick="increment(${product.id})">+</button>
+            = ${product.price * cart[product.id]}
+          </div>
+        </li>
+      `;
     }
   });
-  str += `<button onclick='placeOrder()'>Place Order</button>`;
-  divCart.innerHTML = str;
-  let count = Object.keys(cart).length;
-  items.innerHTML = count;
+  document.getElementById("divCart").innerHTML = str;
+  document.getElementById("item").innerHTML = Object.keys(cart).length;
   showTotal();
 };
+
 const displayCart = () => {
-  divCartBlock.style.left = "80%";
-};
-const hideCart = () => {
-  divCartBlock.style.left = "100%";
+  document.getElementById("divcartblock").style.left = "80%";
 };
 
+const hideCart = () => {
+  document.getElementById("divcartblock").style.left = "100%";
+};
+
+const placeOrder = () => {
+  // Create a copy of the cart to store in the order.
+  const order = {
+    customer: user.email,
+    items: { ...cart },
+    orderValue: total,
+    status: "pending",
+  };
+  orders.push(order);
+  cart = {};
+  showCart();
+  hideCart();
+  showOrders();
+};
+
+/* ---------- ORDER & MAIN PAGE ---------- */
+const showOrders = () => {
+  let str = `<h3>My Orders</h3>`;
+  orders.forEach((order) => {
+    if (order.customer === user.email) {
+      str += `
+        <div class="order">
+          <p>Customer: ${order.customer}</p>
+          <p>Order Value: $${order.orderValue}</p>
+          <p>Items Count: ${Object.keys(order.items).length}</p>
+          <p>Status: ${order.status}</p><br>
+        </div>
+      `;
+    }
+  });
+  document.getElementById("divProducts").innerHTML = str;
+};
+
+const showProducts = () => {
+  let str = "<div class='row'>";
+  products.forEach((product) => {
+    str += `
+      <div class="box">
+        <img src="${product.url}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>${product.des}</p>
+        <h4>$${product.price}</h4>
+        <button onclick="addToCart(${product.id})">Add to Cart</button>
+      </div>
+    `;
+  });
+  str += "</div>";
+  document.getElementById("divProducts").innerHTML = str;
+};
+
+const loadProducts = () => {
+  // Fetch products from products.json (which uses new properties)
+  fetch("products.json")
+    .then((res) => res.json())
+    .then((data) => {
+      products = data;
+      showProducts();
+    })
+    .catch((err) => console.error(err));
+};
+
+const showMain = () => {
+  let str = `
+    <div class="con">
+      <div class="header">
+        <h1>
+          <img src="butterfly-icon.png" alt="Butterfly Icon" class="logo" />
+          OURS
+        </h1>
+        <ul class="menu">
+          <li onclick="showProducts()">Home</li>
+          <li onclick="showOrders()">Orders</li>
+          <li onclick="displayCart()">Cart: <span id="item">${Object.keys(cart).length}</span></li>
+          <li onclick="showLogin()">Logout</li>
+        </ul>
+      </div>
+      <div class="productBlock">
+        <div id="divProducts"></div>
+      </div>
+      <div id="divcartblock" class="cartBlock">
+        <h3>My Cart</h3>
+        <ul id="divCart"></ul>
+        <h3>Total Amount</h3>
+        <div id="divtotal"></div>
+        <button onclick="placeOrder()">Place Order</button>
+        <button onclick="hideCart()">Close</button>
+      </div>
+    </div>
+  `;
+  document.getElementById("root").innerHTML = str;
+  loadProducts();
+};
+
+/* ---------- LOGIN & REGISTRATION ---------- */
 function showLogin() {
   let str = `
-  <div class='login'>
+    <div class="login">
       <h2>Login Form</h2>
-      <div id='msg'></div>
-      <p><input id="email" placeholder='Email Address' type="text"></p>
-      <p><input id="password" placeholder='Password' type="password"></p>
-      <button onclick='chkUser()'>Log In</button>
-      <p><button onclick='showForm()'>Create Account</button></p>
-  </div>
+      <div id="msg"></div>
+      <p><input id="email" type="text" placeholder="Email"></p>
+      <p><input id="password" type="password" placeholder="Password"></p>
+      <button onclick="chkUser()">Log In</button>
+      <p>Not a member? <button onclick="showForm()">Create Account</button></p>
+    </div>
   `;
-  root.innerHTML = str;
+  document.getElementById("root").innerHTML = str;
 }
 
 function showForm() {
-  let str = `<div class='registration'>
-  <h2>Registration Form</h2>
-  <p><input type="text" id="name" placeholder="Name"></p>
-  <p><input type="text" id="email" placeholder="Email"></p>
-  <p><input type="password" id="password" placeholder="Password"></p>
-  <p><input type="date" id="dob"></p>
-  <p><button onclick='addUser()'>Submit</button></p>
-  <p>Already a member?<button onclick='showLogin()'>Login Here</button></p>
+  let str = `
+    <div class="registration">
+      <h2>Registration Form</h2>
+      <p><input type="text" id="name" placeholder="Name"></p>
+      <p><input type="text" id="email" placeholder="Email"></p>
+      <p><input type="password" id="password" placeholder="Password"></p>
+      <p><input type="date" id="dob"></p>
+      <p><button onclick="addUser()">Submit</button></p>
+      <p>Already a member? <button onclick="showLogin()">Login Here</button></p>
+    </div>
   `;
-  root.innerHTML = str + "</div>";
+  document.getElementById("root").innerHTML = str;
 }
 
 function chkUser() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
+  let found = false;
   for (let i = 0; i < users.length; i++) {
-    if (users[i].email == email && users[i].password == password) {
-      // useremail = email;
-      // username = users[i].name;
-      // currBalance = users[i].balance;
+    if (users[i].email === email && users[i].password === password) {
       user = users[i];
-      showMain();
+      found = true;
       break;
-    } else {
-      msg.innerHTML = "Access Denied";
     }
+  }
+  if (found) {
+    showMain();
+  } else {
+    document.getElementById("msg").innerHTML = "Access Denied";
   }
 }
 
@@ -164,33 +212,7 @@ function addUser() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let dob = document.getElementById("dob").value;
-  let user = {
-    name: name,
-    email: email,
-    password: password,
-    dob: dob,
-    balance: 0,
-  };
-  users.push(user);
+  let newUser = { name, email, password, dob, balance: 0 };
+  users.push(newUser);
   showLogin();
 }
-
-const showProducts = () => {
-  fetch("products.json")
-    .then((res) => res.json())
-    .then((data) => (products = data))
-    .then(() => {
-      let str = "<div class='row'>";
-      products.map((value) => {
-        str += `
-          <div class='box'>
-          <h3>${value.name}</h3>
-          <p>${value.desc}</p>
-          <h4>$${value.price}</h4>
-          <button onclick=addToCart(${value.id})>Add to Cart</button>
-          </div>
-          `;
-      });
-      divProducts.innerHTML = str + "</div>";
-    });
-};
