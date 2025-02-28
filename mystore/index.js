@@ -132,8 +132,8 @@ const showMain = () => {
     <div class="con">
       <div class="header">
         <h1>
-          <img src="butterfly-icon.png" alt="Butterfly Icon" class="logo" />
-          OURS
+         
+          HOGWARTS EXPRESS
         </h1>
         <ul class="menu">
           <li onclick="showProducts()">Home</li>
