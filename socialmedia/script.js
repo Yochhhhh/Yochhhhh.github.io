@@ -89,7 +89,7 @@ function showHome() {
    <div class='container-fluid'>
      <div class='row'>
       <div class='d-flex justify-content-between bg-primary text-light'>
-       <div>My Social Media</div>
+       <div>FOMOgram</div>
        <div id='username'></div>
       </div>
      </div>
