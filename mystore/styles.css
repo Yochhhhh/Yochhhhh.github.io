@@ -7,7 +7,7 @@
   
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f3e5d8; /* Light Beige */
+    background-color: #FFF6DA; /* Light Beige */
     color: #5c4033; /* Dark Brown */
   }
   
@@ -21,7 +21,7 @@
   .header {
     padding: 20px;
     display: flex;
-    background-color: #8b5a2b; /* Medium Brown */
+    background-color: #A94A4A; /* Medium Brown */
     justify-content: space-between;
     align-items: center;
     color: #fff;
@@ -60,7 +60,7 @@
   
   /* Product Section */
   .productBlock {
-    background-color: #fdf5e6; /* Light Cream */
+    background-color: #F4D793; /* Light Cream */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -119,7 +119,7 @@
     padding: 10px 15px;
     font-size: 14px;
     border: none;
-    background-color: #cd853f; /* Peru Brown */
+    background-color: #889E73; /* Peru Brown */
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
