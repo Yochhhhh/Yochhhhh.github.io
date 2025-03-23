@@ -39,19 +39,31 @@
     text-decoration: underline;
   }
 
-  .row {
+  /* .row {
     padding: 100px;
     height: 75%;
     background-color: rgb(189, 141, 255);
     
-  }
+  } */
   
   .row .box {
     padding: 20px;
     margin: 10px;
    
   }
-  .proj .box{
+  /* .proj .box .im img {
+    padding: 10px;
+    width: 100%; /* Ensures the image takes the full width of its container */
+    /* height: 250px;
+    width: 200px; /* Maintains the aspect ratio */
+     /* Adjusts the height limit */
+    /* object-fit: cover; /* Ensures the image is cropped properly without distortion */
+    /* border-radius: 10px; /* Optional: rounded corners for aesthetics */
+/* } */ 
+
+  
+  
+  /* .proj .box{
     background-color: rgb(172, 118, 118);
     border-radius: 20px;
    
@@ -60,7 +72,74 @@
   .proj .box:hover{
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  } */
+ /* Ensure sufficient space around the sections */
+.row {
+  padding: 100px 200px; /* Increases padding */
+  min-height: auto;
+  margin: 0px;
+}
+
+/* Projects section styling */
+#projects {
+  background-color: rgb(209, 145, 132);
+  padding: 100px 20px; /* Increased padding for separation */
+  margin:  0; /* Prevents overlap with other sections */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+}
+
+/* Project container layout */
+.proj {
+  display: flex;
+  flex-wrap: wrap; /* Ensures proper wrapping */
+  justify-content: center;
+  gap: 30px; /* More gap to avoid collision */
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+}
+
+/* Individual project boxes */
+.proj .box {
+  background-color: rgb(172, 118, 118);
+  border-radius: 20px;
+  padding: 20px;
+  width: 30%; /* Ensures 3 projects in 1st row, 2 in 2nd */
+  min-width: 280px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Image resizing fix */
+.proj .box img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Ensure enough space between Projects & Services */
+#services {
+  padding-top: 100px; /* Prevents overlap */
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .proj .box {
+      width: 45%; /* Two per row for medium screens */
   }
+}
+
+@media (max-width: 600px) {
+  .proj .box {
+      width: 100%; /* One per row for small screens */
+  }
+}
+
 
   .footer {
     padding: 20px;
